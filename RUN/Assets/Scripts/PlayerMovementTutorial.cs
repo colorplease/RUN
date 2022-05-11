@@ -15,6 +15,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    public bool isSprinting;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -32,7 +33,11 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     Vector3 moveDirection;
 
-    Rigidbody rb;
+    public Rigidbody rb;
+
+    [Header("Blind")]
+    public float blindSpeed;
+    public PixelatedCamera pixelatedCamera;
 
     private void Start()
     {
@@ -49,6 +54,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
         MyInput();
         SpeedControl();
+        Blind();
 
         // handle drag
         if (grounded)
@@ -61,6 +67,25 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         MovePlayer();
     }
+
+    void Blind()
+    {
+        if (isSprinting)
+        {
+            pixelatedCamera.screenScaleFactor += blindSpeed * Time.fixedDeltaTime;
+        }
+        else
+        {
+            
+            if (pixelatedCamera.screenScaleFactor > 3.5f)
+            {
+                pixelatedCamera.screenScaleFactor -= Time.fixedDeltaTime * blindSpeed * 2;
+            }
+
+        }
+    }
+
+    
 
     private void MyInput()
     {
@@ -79,10 +104,12 @@ public class PlayerMovementTutorial : MonoBehaviour
 
         if (Input.GetKey(sprintKey))
         {
+            isSprinting = true;
             moveSpeed = sprintSpeed;
         }
         else
         {
+            isSprinting = false;
             moveSpeed = walkSpeed;
         }
     }
