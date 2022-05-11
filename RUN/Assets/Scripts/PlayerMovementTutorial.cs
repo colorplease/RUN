@@ -38,6 +38,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     [Header("Blind")]
     public float blindSpeed;
     public PixelatedCamera pixelatedCamera;
+    public float bright;
 
     private void Start()
     {
@@ -49,6 +50,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void Update()
     {
+        RenderSettings.ambientIntensity = bright;
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
