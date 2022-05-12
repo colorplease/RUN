@@ -153,4 +153,12 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         readyToJump = true;
     }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Creature")
+        {
+            other.transform.gameObject.GetComponent<CreatureAI>().TargetPlayer();
+        }
+    }
 }
