@@ -11,6 +11,7 @@ public class CreatureAI : MonoBehaviour
     [SerializeField]Transform Light;
     [SerializeField]Light light;
     bool chase;
+    bool actualChase;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,23 +22,24 @@ public class CreatureAI : MonoBehaviour
     void Update()
     {
         navMeshAgent.destination = target.position;
-        if (target.transform.tag == "Waypoint")
+        if (actualChase)
         {
-            Light.transform.LookAt(transform.position);
-        }
-        else
-        {
+            //when chasing the player, look at the player
             Light.transform.LookAt(target.position);
         }
 
         RaycastHit hit;
-        if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 25f))
+        if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 1.5f))
         {
+            //if the player is seen, drop everything and start the chase sequence
             if (hit.transform.tag == "Player")
             {
+                chase = false;
                 if (!chase)
                 {
-                    Chase();
+                    StopAllCoroutines();
+                    print("hey1");
+                    Chase();  
                 }
             }
         }
@@ -45,25 +47,35 @@ public class CreatureAI : MonoBehaviour
 
     public void TargetPlayer()
     {
+        //target the player
         target = player;
     }
 
     void Chase()
     {
-        StartCoroutine(realize());
+        //Start the chase sequence for the player
+        chase = true;
+        actualChase = true;
+        if (actualChase)
+        {
+            StartCoroutine(realize());
+        }
     }
 
     void Calm()
     {
+        //calm down and stop the chase
+        actualChase = false;
+        chase = false;
         light.color = Color.white;
-        target = default;
+        target = defaultTransform;
         navMeshAgent.speed = 2;
         navMeshAgent.acceleration = 1;
     }
 
     IEnumerator realize()
     {
-        chase = false;
+        //Turn the light color red, and then wait 2 seconds before going ape shit crazy on the player
         light.color = Color.red;
         yield return new WaitForSeconds(2);
         TargetPlayer();
@@ -74,7 +86,8 @@ public class CreatureAI : MonoBehaviour
 
     IEnumerator calm()
     {
-        yield return new WaitForSeconds(10f);
+        //Wait 5 seconds and then calm down the creature
+        yield return new WaitForSeconds(5f);
         Calm();
     }
 }
