@@ -31,10 +31,11 @@ public class CreatureAI : MonoBehaviour
         {
             //when chasing the player, look at the player
             Light.transform.LookAt(target.position);
+            navMeshAgent.destination = target.position;
         }
 
         RaycastHit hit;
-        if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 1.5f))
+        if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 0.8f))
         {
             //if the player is seen, drop everything and start the chase sequence
             if (hit.transform.tag == "Player")
