@@ -13,15 +13,20 @@ public class CreatureAI : MonoBehaviour
     bool chase;
     bool actualChase;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        SetDestination();
+    }
+
+    public void SetDestination()
+    {
+        navMeshAgent.destination = target.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        navMeshAgent.destination = target.position;
         if (actualChase)
         {
             //when chasing the player, look at the player
