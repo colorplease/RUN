@@ -64,6 +64,16 @@ public class CreatureAI : MonoBehaviour
     {
         //target the player
         target = player;
+        if (actualChase)
+        {
+            StartCoroutine(seekTimeOut());
+        }
+    }
+
+    IEnumerator seekTimeOut()
+    {
+        yield return new WaitForSeconds(5);
+        target = defaultTransform;
     }
 
     void Chase()
