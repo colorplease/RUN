@@ -10,8 +10,10 @@ public class CreatureAI : MonoBehaviour
     [SerializeField]Transform player;
     [SerializeField]Transform Light;
     [SerializeField]Light light;
+    [SerializeField]Rigidbody rb;
     bool chase;
     bool actualChase;
+    Vector3 lastPos;
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,6 +36,14 @@ public class CreatureAI : MonoBehaviour
             navMeshAgent.destination = target.position;
         }
 
+       //check if enemy is moving
+       Vector3 curPos = transform.position;
+       if (curPos == lastPos)
+       {
+           SetDestination();
+       }
+       lastPos = curPos;
+
         RaycastHit hit;
         if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 0.8f))
         {
@@ -44,7 +54,6 @@ public class CreatureAI : MonoBehaviour
                 if (!chase)
                 {
                     StopAllCoroutines();
-                    print("hey1");
                     Chase();  
                 }
             }

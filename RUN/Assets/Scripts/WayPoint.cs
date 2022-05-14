@@ -52,7 +52,6 @@ public class WayPoint : MonoBehaviour
             transform.position = new Vector3(hit.position.x, 0.05f, hit.position.z);
             yield return new WaitForSeconds(1);
             Creature.gameObject.GetComponent<CreatureAI>().SetDestination();
-            print("sus");
         }
     }
     
