@@ -164,4 +164,12 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         readyToJump = true;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Creature")
+        {
+            other.gameObject.GetComponentInParent<CreatureAI>().Chase();
+        }
+    }
 }

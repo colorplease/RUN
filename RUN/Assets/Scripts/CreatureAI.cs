@@ -32,10 +32,13 @@ public class CreatureAI : MonoBehaviour
 
     public void GenerateNewWanderPoint()
     {
-        var spawn = Random.Range(0, wayPoints.Length);
+        if (!actualChase)
+        {
+            var spawn = Random.Range(0, wayPoints.Length);
         target = wayPoints[spawn].transform;
         defaultTransform = wayPoints[spawn].transform;
         SetDestination();
+        }
     }
 
     public void SetDestination()
@@ -70,7 +73,6 @@ public class CreatureAI : MonoBehaviour
                 chase = false;
                 if (!chase)
                 {
-                    StopAllCoroutines();
                     Chase();  
                 }
             }
@@ -93,9 +95,10 @@ public class CreatureAI : MonoBehaviour
         target = defaultTransform;
     }
 
-    void Chase()
+    public void Chase()
     {
         //Start the chase sequence for the player
+        StopAllCoroutines();
         chase = true;
         actualChase = true;
         if (actualChase)
@@ -136,10 +139,5 @@ public class CreatureAI : MonoBehaviour
         //Wait 5 seconds and then calm down the creature
         yield return new WaitForSeconds(10f);
         Calm();
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-
     }
 }
