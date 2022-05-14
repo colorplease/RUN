@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class WayPoint : MonoBehaviour
 {
     [SerializeField]bool randomWanderer;
+    [SerializeField]Transform moveThis;
     GameManager gameManager;
+    int spawn;
     
     void Start()
     {
@@ -18,6 +20,11 @@ public class WayPoint : MonoBehaviour
                 NavMesh.SamplePosition(pos, out hit, Mathf.Infinity, NavMesh.AllAreas);
                 transform.position = new Vector3(hit.position.x, 0.05f, hit.position.z);
         }
+        else
+        {
+            spawn = Random.Range(0, gameManager.spawnPoints.Length);
+            moveThis.position = gameManager.spawnPoints[spawn].transform.position;
+        }
     }
 
     void OnTriggerStay(Collider other)
@@ -27,7 +34,7 @@ public class WayPoint : MonoBehaviour
             if (!randomWanderer)
             {
                 gameManager.OrbCollected();
-                Destroy(gameObject);
+                Destroy(moveThis.gameObject);
             }
         }
 
@@ -44,6 +51,12 @@ public class WayPoint : MonoBehaviour
             {
                 other.gameObject.GetComponentInParent<CreatureAI>().GenerateNewWanderPoint();
             }
+        }
+
+        if (other.tag == "battery")
+        {
+                   spawn = Random.Range(0, gameManager.spawnPoints.Length);
+                    moveThis.position = gameManager.spawnPoints[spawn].transform.position;
         }
     }
     
