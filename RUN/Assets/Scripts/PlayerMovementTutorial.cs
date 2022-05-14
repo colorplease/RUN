@@ -40,29 +40,40 @@ public class PlayerMovementTutorial : MonoBehaviour
     public PixelatedCamera pixelatedCamera;
     public float bright;
 
+    [Header("Shake")]
+    [SerializeField]CameraShake cameraShake;
+    [SerializeField]Transform enemy;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
         readyToJump = true;
+        RenderSettings.ambientIntensity = bright;
     }
 
     private void Update()
     {
-        RenderSettings.ambientIntensity = bright;
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
         MyInput();
         SpeedControl();
         Blind();
+        ShakeControl();
 
         // handle drag
         if (grounded)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+    }
+
+    void ShakeControl()
+    {
+        float dist = Vector3.Distance(transform.position, enemy.position);
+        cameraShake.power = 1/dist * 0.1f;
     }
 
     private void FixedUpdate()
@@ -152,13 +163,5 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Creature")
-        {
-            other.transform.gameObject.GetComponent<CreatureAI>().TargetPlayer();
-        }
     }
 }

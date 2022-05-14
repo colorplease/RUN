@@ -5,7 +5,7 @@ using UnityEngine;
 public class CreatureAI : MonoBehaviour
 {
     [SerializeField]UnityEngine.AI.NavMeshAgent navMeshAgent;
-    [SerializeField]Transform target;
+    public Transform target;
     [SerializeField]Transform defaultTransform;
     [SerializeField]Transform player;
     [SerializeField]Transform Light;
@@ -13,13 +13,27 @@ public class CreatureAI : MonoBehaviour
     [SerializeField]Light light2;
     [SerializeField]Rigidbody rb;
     [SerializeField]ProceduralWalk proceduralWalk;
+    [SerializeField]CameraShake cameraShake;
+    [SerializeField]Color lightColor;
+    [SerializeField]GameManager gameManager;
+    [SerializeField]GameObject[] wayPoints;
     bool chase;
     bool actualChase;
     Vector3 lastPos;
     // Start is called before the first frame update
     void Awake()
     {
+        wayPoints = GameObject.FindGameObjectsWithTag("Waypoint");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        GenerateNewWanderPoint();
+        SetDestination();
+    }
+
+    public void GenerateNewWanderPoint()
+    {
+        var spawn = Random.Range(0, wayPoints.Length);
+        target = wayPoints[spawn].transform;
         SetDestination();
     }
 
@@ -92,10 +106,11 @@ public class CreatureAI : MonoBehaviour
     void Calm()
     {
         //calm down and stop the chase
+        cameraShake.shouldShake = false;
         actualChase = false;
         chase = false;
-        light.color = Color.white;
-        light2.color = Color.white;
+        light.color = lightColor;
+        light2.color = lightColor;
         target = defaultTransform;
         navMeshAgent.speed = 2;
         navMeshAgent.acceleration = 1;
@@ -105,6 +120,7 @@ public class CreatureAI : MonoBehaviour
     IEnumerator realize()
     {
         //Turn the light color red, and then wait 2 seconds before going ape shit crazy on the player
+        cameraShake.shouldShake = true;
         light.color = Color.red;
         light2.color = Color.red;
         yield return new WaitForSeconds(2);

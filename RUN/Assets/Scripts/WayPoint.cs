@@ -5,53 +5,45 @@ using UnityEngine.AI;
 
 public class WayPoint : MonoBehaviour
 {
-    public bool isFriendly;
-    void Awake()
+    [SerializeField]bool randomWanderer;
+    GameManager gameManager;
+    
+    void Start()
     {
-        NavMeshHit hit;
-        Vector3 pos = new Vector3(Random.Range(-50.32f, -36.78f), 0.05f, Random.Range(-6.49f, 6.48f));
-        NavMesh.SamplePosition(pos, out hit, Mathf.Infinity, NavMesh.AllAreas);
-        transform.position = new Vector3(hit.position.x, 0.05f, hit.position.z);
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        if (randomWanderer)
+        {
+                NavMeshHit hit;
+                Vector3 pos = new Vector3(Random.Range(-50.32f, -36.78f), 0.05f, Random.Range(-6.49f, 6.48f));
+                NavMesh.SamplePosition(pos, out hit, Mathf.Infinity, NavMesh.AllAreas);
+                transform.position = new Vector3(hit.position.x, 0.05f, hit.position.z);
+        }
     }
 
     void OnTriggerStay(Collider other)
     {
-
-        if (other.tag == "Waypoint")
+        if (other.tag == "Player")
         {
-            if (isFriendly)
+            if (!randomWanderer)
             {
-             NavMeshHit hit;
-            Vector3 pos = new Vector3(Random.Range(-50.32f, -36.78f), 0.05f, Random.Range(-6.49f, 6.48f));
-            NavMesh.SamplePosition(pos, out hit, Mathf.Infinity, NavMesh.AllAreas);
-            transform.position = new Vector3(hit.position.x, 0.05f, hit.position.z);
+                gameManager.OrbCollected();
+                Destroy(gameObject);
             }
         }
 
         if (other.tag == "Creature")
         {
-            if (!isFriendly)
+            if (randomWanderer)
             {
-                StartCoroutine(wayPointGot(other.transform));
+                NavMeshHit hit;
+                Vector3 pos = new Vector3(Random.Range(-50.32f, -36.78f), 0.05f, Random.Range(-6.49f, 6.48f));
+                NavMesh.SamplePosition(pos, out hit, Mathf.Infinity, NavMesh.AllAreas);
+                transform.position = new Vector3(hit.position.x, 0.05f, hit.position.z);
             }
-        }
-
-        if (other.tag == "Player")
-        {
-            if (isFriendly)
+            if (transform == other.gameObject.GetComponentInParent<CreatureAI>().target)
             {
-                Destroy(gameObject);
+                other.gameObject.GetComponentInParent<CreatureAI>().GenerateNewWanderPoint();
             }
-        }
-
-        IEnumerator wayPointGot(Transform Creature)
-        {
-            NavMeshHit hit;
-            Vector3 pos = new Vector3(Random.Range(-50.32f, -36.78f), 0.05f, Random.Range(-6.49f, 6.48f));
-            NavMesh.SamplePosition(pos, out hit, Mathf.Infinity, NavMesh.AllAreas);
-            transform.position = new Vector3(hit.position.x, 0.05f, hit.position.z);
-            yield return new WaitForSeconds(1);
-            Creature.gameObject.GetComponent<CreatureAI>().SetDestination();
         }
     }
     
