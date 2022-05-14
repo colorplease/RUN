@@ -34,6 +34,7 @@ public class CreatureAI : MonoBehaviour
     {
         var spawn = Random.Range(0, wayPoints.Length);
         target = wayPoints[spawn].transform;
+        defaultTransform = wayPoints[spawn].transform;
         SetDestination();
     }
 

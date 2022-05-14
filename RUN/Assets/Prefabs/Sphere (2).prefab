@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4160448492650110779}
   - component: {fileID: 4160448492650110778}
   - component: {fileID: 4160448492650110781}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere (2)
   m_TagString: Waypoint
   m_Icon: {fileID: 0}
@@ -110,4 +110,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a06e656be19aa44ea773b7572193333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFriendly: 1
+  randomWanderer: 0

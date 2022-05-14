@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public void OrbCollected()
     {
         orbCount--;
-        messageText.NewText(orbCount.ToString(), 1);
+        messageText.NewText(orbCount.ToString(), 0.5f);
     }
 
     // Update is called once per frame
