@@ -10,7 +10,9 @@ public class CreatureAI : MonoBehaviour
     [SerializeField]Transform player;
     [SerializeField]Transform Light;
     [SerializeField]Light light;
+    [SerializeField]Light light2;
     [SerializeField]Rigidbody rb;
+    [SerializeField]ProceduralWalk proceduralWalk;
     bool chase;
     bool actualChase;
     Vector3 lastPos;
@@ -45,7 +47,7 @@ public class CreatureAI : MonoBehaviour
        lastPos = curPos;
 
         RaycastHit hit;
-        if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 0.8f))
+        if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 1f))
         {
             //if the player is seen, drop everything and start the chase sequence
             if (hit.transform.tag == "Player")
@@ -93,15 +95,18 @@ public class CreatureAI : MonoBehaviour
         actualChase = false;
         chase = false;
         light.color = Color.white;
+        light2.color = Color.white;
         target = defaultTransform;
         navMeshAgent.speed = 2;
         navMeshAgent.acceleration = 1;
+
     }
 
     IEnumerator realize()
     {
         //Turn the light color red, and then wait 2 seconds before going ape shit crazy on the player
         light.color = Color.red;
+        light2.color = Color.red;
         yield return new WaitForSeconds(2);
         TargetPlayer();
         navMeshAgent.speed = 3;
@@ -112,7 +117,12 @@ public class CreatureAI : MonoBehaviour
     IEnumerator calm()
     {
         //Wait 5 seconds and then calm down the creature
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         Calm();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+
     }
 }
