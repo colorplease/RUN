@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Waypoint
   - Creature
+  - WayPointChance
   layers:
   - Default
   - TransparentFX
