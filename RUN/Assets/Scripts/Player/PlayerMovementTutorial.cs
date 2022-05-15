@@ -22,6 +22,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode mapKey = KeyCode.R;
+    public KeyCode weaponKey = KeyCode.Mouse0;
 
     [Header("Ground Check")]
     public float playerHeight;
