@@ -100,7 +100,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         else
         {
             
-            if (pixelatedCamera.screenScaleFactor > 3.5f)
+            if (pixelatedCamera.screenScaleFactor > 5f)
             {
                 pixelatedCamera.screenScaleFactor -= Time.fixedDeltaTime * blindSpeed * 2;
             }
