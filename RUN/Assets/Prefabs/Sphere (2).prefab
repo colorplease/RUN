@@ -111,3 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomWanderer: 0
+  moveThis: {fileID: 0}

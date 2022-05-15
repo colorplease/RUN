@@ -9,6 +9,7 @@ TagManager:
   - WayPointChance
   - GameManager
   - battery
+  - MiniMapWall
   layers:
   - Default
   - TransparentFX

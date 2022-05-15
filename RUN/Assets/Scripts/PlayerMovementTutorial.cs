@@ -16,10 +16,12 @@ public class PlayerMovementTutorial : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
     public bool isSprinting;
+    bool canMove = true;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode mapKey = KeyCode.R;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -43,6 +45,13 @@ public class PlayerMovementTutorial : MonoBehaviour
     [Header("Shake")]
     [SerializeField]CameraShake cameraShake;
     [SerializeField]Transform enemy;
+
+    [Header("Map")]
+    [SerializeField]GameObject map;
+    [SerializeField]GameObject mapOpenAnimation;
+    [SerializeField]GameObject mapOpenText;
+    [SerializeField]Camera mapCamera;
+    [SerializeField]bool mapOpen;
 
     private void Start()
     {
@@ -102,7 +111,9 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void MyInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        if (canMove)
+        {
+             horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
@@ -125,11 +136,52 @@ public class PlayerMovementTutorial : MonoBehaviour
             isSprinting = false;
             moveSpeed = walkSpeed;
         }
+        }
+
+        if (Input.GetKeyDown(mapKey))
+        {
+            print("hey");
+            if (mapOpen)
+            {
+                MapClose();
+            }
+            else
+            {
+                MapOpen();
+            }
+        }
+    }
+
+    void MapOpen()
+    {
+        StartCoroutine(mapOpenAnim());
+    }
+
+    public void MapClose()
+    {
+        canMove = true;
+        mapOpen = false;
+        map.SetActive(false);
+        mapOpenAnimation.SetActive(false);
+        mapCamera.gameObject.SetActive(false);
+        StopAllCoroutines();
+    }
+
+    IEnumerator mapOpenAnim()
+    {
+        canMove = false;
+        mapOpen = true;
+        mapOpenAnimation.SetActive(true);
+        yield return new WaitForSeconds(1.1f);
+        mapCamera.gameObject.SetActive(true);
+        map.SetActive(true);
     }
 
     private void MovePlayer()
     {
-        // calculate movement direction
+        if (canMove)
+        {
+             // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // on ground
@@ -139,6 +191,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         // in air
         else if(!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
     }
 
     private void SpeedControl()

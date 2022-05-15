@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 75432078}
   - component: {fileID: 75432080}
   - component: {fileID: 75432079}
+  - component: {fileID: 1707248765787472657}
   m_Layer: 7
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: MiniMapWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 75432077}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.3033, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.030000001, z: 0.030000001}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5216614322829500761}
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b81600e440bfe474e8d2e542a97a3aba, type: 2}
+  - {fileID: 2100000, guid: 952b938fb99b23d41b9e7c2f15e78f9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &1707248765787472657
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75432077}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 6
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1746890150554819932
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4382797928991537926}
-  - component: {fileID: 3942307275687269017}
+  - component: {fileID: 8669600005561867539}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: battery
@@ -148,8 +162,8 @@ Transform:
   m_Father: {fileID: 3223109376982921018}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &3942307275687269017
-MeshCollider:
+--- !u!135 &8669600005561867539
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -158,10 +172,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 8503891571225415436, guid: b580743017c431742aacb0a4aa308415, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.02
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8998711740359856959
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +192,7 @@ GameObject:
   - component: {fileID: 4089606455367798564}
   m_Layer: 0
   m_Name: g_battery
-  m_TagString: Waypoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

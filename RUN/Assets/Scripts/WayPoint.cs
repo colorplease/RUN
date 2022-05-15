@@ -56,7 +56,7 @@ public class WayPoint : MonoBehaviour
         if (other.tag == "battery")
         {
                    spawn = Random.Range(0, gameManager.spawnPoints.Length);
-                    moveThis.position = gameManager.spawnPoints[spawn].transform.position;
+                   moveThis.position = gameManager.spawnPoints[spawn].transform.position;
         }
     }
     
