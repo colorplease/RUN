@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5216614322829500761}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: g_battery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4382797928991537926}
   - component: {fileID: 8669600005561867539}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject
   m_TagString: battery
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 7098781054872908428}
   - component: {fileID: 3086765511990662888}
   - component: {fileID: 4089606455367798564}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: g_battery
   m_TagString: Untagged
   m_Icon: {fileID: 0}

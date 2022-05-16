@@ -5,28 +5,28 @@ using UnityEngine;
 public class LaserPointer : MonoBehaviour
 {
     [SerializeField]Transform laserOrgin;
-    [SerializeField]LineRenderer lr;
+    [SerializeField]Transform laserPoint;
+    [SerializeField]GameObject laserTrail;
     [SerializeField]PlayerMovementTutorial player;
 
     void Update()
     {
         if (Input.GetKey(player.weaponKey))
         {
+            laserTrail.SetActive(true);
+            laserPoint.gameObject.SetActive(true);
             Debug.DrawRay(laserOrgin.position, laserOrgin.transform.forward, Color.red);
             RaycastHit hit;
-            if (Physics.Raycast(laserOrgin.transform.position, laserOrgin.transform.forward, out hit, 10f))
+            if (Physics.Raycast(laserOrgin.transform.position, laserOrgin.transform.forward, out hit))
             {
-                print(hit.transform.name);
-                    lr.SetPosition(1, new Vector3(0,0, hit.distance));
-            }
-            else
-            {
-                lr.SetPosition(1, new Vector3(0,0,5000));
+                    laserPoint.position = hit.point;
+                    laserPoint.rotation = Quaternion.LookRotation(hit.normal);
             }
         }
         else
         {
-            lr.SetPosition(1, new Vector3(0,0,5000));
+            laserPoint.gameObject.SetActive(false);
+            laserTrail.SetActive(false);
         }
     }
 }
