@@ -7781,14 +7781,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221433124}
-  m_LocalRotation: {x: -0.028096126, y: -0, z: -0, w: 0.99960524}
+  m_LocalRotation: {x: 0, y: 0.99960524, z: 0.028096126, w: 0}
   m_LocalPosition: {x: -0.014999678, y: 0.09799999, z: -0.06800013}
   m_LocalScale: {x: 0.16981135, y: 0.16981135, z: 0.16981135}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 314135698}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -3.22, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.22, y: 180, z: 0}
 --- !u!114 &221433126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9477,6 +9477,7 @@ MonoBehaviour:
   laserPoint: {fileID: 466426614}
   laserTrail: {fileID: 1184857483}
   player: {fileID: 303808542}
+  creature: {fileID: 314135699}
 --- !u!1001 &269242355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11507,6 +11508,8 @@ MonoBehaviour:
   lightColor: {r: 0.23529412, g: 0.09803922, b: 0.09803922, a: 1}
   gameManager: {fileID: 0}
   wayPoints: []
+  chase: 0
+  ooshiny: 0
 --- !u!1 &315625193
 GameObject:
   m_ObjectHideFlags: 0
@@ -27155,7 +27158,6 @@ GameObject:
   - component: {fileID: 763921378}
   - component: {fileID: 763921380}
   - component: {fileID: 763921381}
-  - component: {fileID: 763921382}
   m_Layer: 2
   m_Name: Spider
   m_TagString: Creature
@@ -27277,19 +27279,6 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.004
-  m_Center: {x: -0.00000024860537, y: -0.0000048478523, z: 0.001253125}
---- !u!135 &763921382
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763921374}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.003
   m_Center: {x: -0.00000024860537, y: -0.0000048478523, z: 0.001253125}
 --- !u!1 &766304604
 GameObject:
@@ -47111,7 +47100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39403228a3e26474eae9a97c51b920bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smooth: 3
+  smooth: 10
   multiplier: 3
 --- !u!114 &1373949399
 MonoBehaviour:
@@ -58277,6 +58266,8 @@ MonoBehaviour:
   lightColor: {r: 0, g: 0, b: 0, a: 0}
   gameManager: {fileID: 0}
   wayPoints: []
+  chase: 0
+  ooshiny: 0
 --- !u!136 &1725893600
 CapsuleCollider:
   m_ObjectHideFlags: 0

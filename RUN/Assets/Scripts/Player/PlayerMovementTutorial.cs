@@ -52,7 +52,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     [SerializeField]GameObject mapOpenAnimation;
     [SerializeField]GameObject mapOpenText;
     [SerializeField]Camera mapCamera;
-    [SerializeField]bool mapOpen;
+    public bool mapOpen;
 
     private void Start()
     {

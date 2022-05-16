@@ -6,7 +6,7 @@ public class CreatureAI : MonoBehaviour
 {
     [SerializeField]UnityEngine.AI.NavMeshAgent navMeshAgent;
     public Transform target;
-    [SerializeField]Transform defaultTransform;
+    public Transform defaultTransform;
     [SerializeField]Transform player;
     [SerializeField]Transform Light;
     [SerializeField]Light light;
@@ -17,8 +17,9 @@ public class CreatureAI : MonoBehaviour
     [SerializeField]Color lightColor;
     [SerializeField]GameManager gameManager;
     [SerializeField]GameObject[] wayPoints;
-    bool chase;
+    public bool chase;
     bool actualChase;
+    public bool ooshiny;
     Vector3 lastPos;
     // Start is called before the first frame update
     void Awake()
@@ -49,11 +50,29 @@ public class CreatureAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (actualChase)
+        if (actualChase || ooshiny)
         {
             //when chasing the player, look at the player
             Light.transform.LookAt(target.position);
             navMeshAgent.destination = target.position;
+        }
+        else
+        {
+            Light.transform.localRotation = Quaternion.Euler(-3.22f, 0, 0);
+        }
+
+        if (!ooshiny && !actualChase)
+        {
+            var distance = Vector3.Distance(transform.position, player.position);
+            if (player.gameObject.GetComponent<PlayerMovementTutorial>().isSprinting || player.gameObject.GetComponent<PlayerMovementTutorial>().mapOpen || distance > 10)
+            {
+                TargetPlayer();
+            }
+            else
+            {
+                target = defaultTransform;
+                SetDestination();
+            }
         }
 
        //check if enemy is moving
@@ -83,16 +102,7 @@ public class CreatureAI : MonoBehaviour
     {
         //target the player
         target = player;
-        if (actualChase)
-        {
-            StartCoroutine(seekTimeOut());
-        }
-    }
-
-    IEnumerator seekTimeOut()
-    {
-        yield return new WaitForSeconds(5);
-        target = defaultTransform;
+        SetDestination();
     }
 
     public void Chase()

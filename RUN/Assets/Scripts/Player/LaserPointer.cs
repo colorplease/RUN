@@ -8,11 +8,18 @@ public class LaserPointer : MonoBehaviour
     [SerializeField]Transform laserPoint;
     [SerializeField]GameObject laserTrail;
     [SerializeField]PlayerMovementTutorial player;
+    [SerializeField]CreatureAI creature;
 
     void Update()
     {
         if (Input.GetKey(player.weaponKey))
         {
+            if (!creature.chase)
+            {
+                creature.target = laserPoint;
+                creature.SetDestination();
+                creature.ooshiny = true;
+            }
             laserTrail.SetActive(true);
             laserPoint.gameObject.SetActive(true);
             Debug.DrawRay(laserOrgin.position, laserOrgin.transform.forward, Color.red);
@@ -25,6 +32,12 @@ public class LaserPointer : MonoBehaviour
         }
         else
         {
+            if (creature.target.gameObject.activeSelf == false)
+            {
+                creature.ooshiny = false;
+                creature.target = creature.defaultTransform;
+                creature.SetDestination();
+            }
             laserPoint.gameObject.SetActive(false);
             laserTrail.SetActive(false);
         }
