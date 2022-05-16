@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject[] spawnPoints;
+    public Transform[] spawnPointTransforms;
     public GameObject[] batteries;
     [SerializeField]GameObject orbPrefab;
     public int orbCount;
@@ -15,6 +16,11 @@ public class GameManager : MonoBehaviour
     {
         orbCount = initalOrbCount;
         spawnPoints = GameObject.FindGameObjectsWithTag("WayPointChance");
+        spawnPointTransforms = new Transform[spawnPoints.Length];
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            spawnPointTransforms[i] = spawnPoints[i].GetComponent<Transform>();
+        }
     }
 
     public void Spawn()

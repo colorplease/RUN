@@ -64,7 +64,7 @@ public class CreatureAI : MonoBehaviour
         if (!ooshiny && !actualChase)
         {
             var distance = Vector3.Distance(transform.position, player.position);
-            if (player.gameObject.GetComponent<PlayerMovementTutorial>().isSprinting || player.gameObject.GetComponent<PlayerMovementTutorial>().mapOpen || distance > 10)
+            if (player.gameObject.GetComponent<PlayerMovementTutorial>().isSprinting || distance > 6)
             {
                 TargetPlayer();
             }
@@ -149,5 +149,22 @@ public class CreatureAI : MonoBehaviour
         //Wait 5 seconds and then calm down the creature
         yield return new WaitForSeconds(10f);
         Calm();
+    }
+
+    public Transform GetClosestSpawn()
+    {
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach(Transform t in gameManager.spawnPointTransforms)
+        {
+            float dist = Vector3.Distance(t.position, currentPos);
+            if (dist < minDist)
+            {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return tMin;
     }
 }

@@ -72,6 +72,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         SpeedControl();
         Blind();
         ShakeControl();
+        CheckIfPlayerScrewed();
 
         // handle drag
         if (grounded)
@@ -84,6 +85,15 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         float dist = Vector3.Distance(transform.position, enemy.position);
         cameraShake.power = 1/dist * 0.1f;
+    }
+
+    void CheckIfPlayerScrewed()
+    {
+        if (enemy.gameObject.GetComponent<CreatureAI>().chase)
+        {
+            MapClose();
+        }
+
     }
 
     private void FixedUpdate()

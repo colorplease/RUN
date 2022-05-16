@@ -35,7 +35,7 @@ public class LaserPointer : MonoBehaviour
             if (creature.target.gameObject.activeSelf == false)
             {
                 creature.ooshiny = false;
-                creature.target = creature.defaultTransform;
+                creature.target = creature.GetClosestSpawn();
                 creature.SetDestination();
             }
             laserPoint.gameObject.SetActive(false);
