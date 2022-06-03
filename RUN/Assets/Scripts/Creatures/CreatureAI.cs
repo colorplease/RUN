@@ -70,7 +70,6 @@ public class CreatureAI : MonoBehaviour
         else
         {
             InOfSight();
-            Debug.Log("a");
         }
         RaycastHit hit;
         if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 0.75f))
