@@ -9,6 +9,8 @@ public class LaserPointer : MonoBehaviour
     [SerializeField]GameObject laserTrail;
     [SerializeField]PlayerMovementTutorial player;
     [SerializeField]CreatureAI creature;
+    [SerializeField]float scaleFactorDistance;
+    [SerializeField]float minimumScale;
 
     void Update()
     {
@@ -26,6 +28,9 @@ public class LaserPointer : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(laserOrgin.transform.position, laserOrgin.transform.forward, out hit))
             {
+                    var distance = Vector3.Distance(laserOrgin.position, laserPoint.position);
+                    var distanceScaleFactor = Mathf.Clamp(distance * scaleFactorDistance, minimumScale, 20);
+                    laserPoint.localScale = new Vector3(distanceScaleFactor, distanceScaleFactor, distanceScaleFactor);
                     laserPoint.position = hit.point;
                     laserPoint.rotation = Quaternion.LookRotation(hit.normal);
             }

@@ -21,6 +21,8 @@ public class CreatureAI : MonoBehaviour
     bool actualChase;
     public bool ooshiny;
     Vector3 lastPos;
+    public bool isViewable;
+    bool stopped;
     // Start is called before the first frame update
     void Awake()
     {
@@ -61,30 +63,17 @@ public class CreatureAI : MonoBehaviour
             Light.transform.localRotation = Quaternion.Euler(-3.22f, 0, 0);
         }
 
-        if (!ooshiny && !actualChase)
+        if (!isViewable && !actualChase)
         {
-            var distance = Vector3.Distance(transform.position, player.position);
-            if (player.gameObject.GetComponent<PlayerMovementTutorial>().isSprinting || distance > 6)
-            {
-                TargetPlayer();
-            }
-            else
-            {
-                target = defaultTransform;
-                SetDestination();
-            }
+            OutOfSight();
         }
-
-       //check if enemy is moving
-       Vector3 curPos = transform.position;
-       if (curPos == lastPos)
-       {
-           SetDestination();
-       }
-       lastPos = curPos;
-
+        else
+        {
+            InOfSight();
+            Debug.Log("a");
+        }
         RaycastHit hit;
-        if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 1f))
+        if (Physics.Raycast(Light.transform.position, Light.transform.forward, out hit, 0.75f))
         {
             //if the player is seen, drop everything and start the chase sequence
             if (hit.transform.tag == "Player")
@@ -129,6 +118,26 @@ public class CreatureAI : MonoBehaviour
         navMeshAgent.speed = 2;
         navMeshAgent.acceleration = 1;
 
+    }
+
+    void OutOfSight()
+    {
+        TargetPlayer();
+        navMeshAgent.speed = 3;
+        navMeshAgent.acceleration = 3;
+        stopped = false;
+    }
+
+    void InOfSight()
+    {
+        if (!stopped)
+        {
+            navMeshAgent.speed = 2;
+            navMeshAgent.acceleration = 1;
+            navMeshAgent.velocity = Vector3.zero;
+            GenerateNewWanderPoint();
+            stopped = true;
+        }
     }
 
     IEnumerator realize()

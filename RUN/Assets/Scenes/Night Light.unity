@@ -9478,6 +9478,8 @@ MonoBehaviour:
   laserTrail: {fileID: 1184857483}
   player: {fileID: 303808542}
   creature: {fileID: 314135699}
+  scaleFactorDistance: 0.05
+  minimumScale: 0
 --- !u!1001 &269242355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10884,6 +10886,7 @@ GameObject:
   - component: {fileID: 303808543}
   - component: {fileID: 303808542}
   - component: {fileID: 303808541}
+  - component: {fileID: 303808547}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -11031,6 +11034,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &303808547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303808540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dacafb97bb0eb254486bbaeffe339eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 763921378}
+  creature: {fileID: 314135699}
 --- !u!1 &304573164
 GameObject:
   m_ObjectHideFlags: 0
@@ -11510,6 +11527,7 @@ MonoBehaviour:
   wayPoints: []
   chase: 0
   ooshiny: 0
+  isViewable: 0
 --- !u!1 &315625193
 GameObject:
   m_ObjectHideFlags: 0
@@ -16055,7 +16073,7 @@ Transform:
   m_GameObject: {fileID: 466426611}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -36.96608, y: 0.08, z: 5.47939}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -38975,6 +38993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints: []
+  spawnPointTransforms: []
   batteries: []
   orbPrefab: {fileID: 1746890150554819932, guid: efdd048237856b9498aa8d51e90f0f43, type: 3}
   orbCount: 0
@@ -58268,6 +58287,7 @@ MonoBehaviour:
   wayPoints: []
   chase: 0
   ooshiny: 0
+  isViewable: 0
 --- !u!136 &1725893600
 CapsuleCollider:
   m_ObjectHideFlags: 0

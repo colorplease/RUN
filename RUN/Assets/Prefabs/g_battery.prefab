@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 4089606455367798564}
   m_Layer: 2
   m_Name: g_battery
-  m_TagString: Untagged
+  m_TagString: Waypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
