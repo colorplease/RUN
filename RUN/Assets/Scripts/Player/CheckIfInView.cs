@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class CheckIfInView : MonoBehaviour
 {
-    [SerializeField]Renderer renderer;
-    [SerializeField]CreatureAI creature;
-   
-   void Update()
-   {
-       if (renderer.isVisible)
-       {
-           creature.isViewable = true;
-       }
-       else
-       {
-           creature.isViewable = false;
-       }
-   }
+    [SerializeField]Transform eyes;
+    public bool seen;
+    void FixedUpdate()
+    {
+        RaycastHit hit;
+        Debug.DrawRay(eyes.position, eyes.forward, Color.green);
+        if(Physics.Raycast(eyes.position, eyes.forward, out hit))
+        {
+            if (hit.transform.tag == "Creature")
+            {
+                seen = true;
+            }
+            else
+            {
+                seen = false;
+            }
+        }
+    }
 }

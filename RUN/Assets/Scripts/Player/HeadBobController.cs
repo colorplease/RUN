@@ -6,7 +6,7 @@ public class HeadBobController : MonoBehaviour
 {
     [SerializeField]bool _enable = true;
 
-    [SerializeField, Range(0, 0.2f)] float amplitude = 0.015f;
+    [SerializeField] float amplitude = 0.015f;
     [SerializeField, Range(0, 30)] float frequency = 10.0f;
     [SerializeField] float amplitudeReal;
     [SerializeField] Transform camera = null;
@@ -24,7 +24,7 @@ public class HeadBobController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!_enable) return;
          ResetPosition();

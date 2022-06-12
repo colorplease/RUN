@@ -27,7 +27,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    [SerializeField]bool grounded;
 
     public Transform orientation;
 
@@ -65,8 +65,6 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -89,7 +87,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     void CheckIfPlayerScrewed()
     {
-        if (enemy.gameObject.GetComponent<CreatureAI>().chase)
+        if (enemy.gameObject.GetComponentInChildren<CreatureAIRedux>().chase)
         {
             MapClose();
         }
@@ -233,7 +231,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         if (other.tag == "Creature")
         {
-            other.gameObject.GetComponentInParent<CreatureAI>().Chase();
+            other.gameObject.GetComponent<CreatureAIRedux>().chase = true;
         }
     }
 }
